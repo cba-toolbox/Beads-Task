@@ -4,4 +4,4 @@
 
 
 # install from GitHub
-remotes::install_github(c("ykunisato/psyinfr"), dependencies = TRUE)
+remotes::install_github(c("ykunisato/psyinfr"), dependencies = TRUE, force = TRUE)

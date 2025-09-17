@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes"/>
+  <script src="Beads-Task/plugins.js"></script>
+  <link href="Beads-Task/jspsych/dist/jspsych.css" rel="stylesheet" type="text/css" />
+    <style>
+      body {
+        text-align: center; /* Center inline-block children */
+        padding-top: 20px; /* Add some space above the button */
+      }
+      #finishButton {
+        display: none; /* Keep hidden initially */
+        padding: 12px 24px;
+        font-size: 16px;
+        color: white;
+        background-color: #03ab7e; /* #007bff Example blue color */
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 20px; /* Space between jspsych content and button */
+        transition: background-color 0.3s ease; /* Smooth hover effect */
+      }
+      #finishButton:hover {
+        background-color: #008558; /* #0056b3 Darker blue on hover */
+      }
+    </style>
+ </head>
+ <body>
+    <div id="jspsych-display-element"></div>
+    <button id="finishButton">調査の回答を終了</button>
+ </body>
+ <script type="text/javascript" src="Beads-Task/init_run/cema_jspsych_init.js"></script>
+ <script type="text/javascript" src="Beads-Task/task.js"></script>
+ <script type="text/javascript" src="Beads-Task/init_run/cema_jspsych_run.js"></script>
+</html>
