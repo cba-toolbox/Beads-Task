@@ -34,8 +34,8 @@ const getUserDefinedSettings = () => ({
    * を合わせて設定します。
    */
   jarStimuli: [
-    { jar: 'A', highProbabilityColor: 'red', lowProbabilityColor: 'blue', jarImage: 'red85-blue15.png' },
-    { jar: 'B', highProbabilityColor: 'blue', lowProbabilityColor: 'red', jarImage: 'red15-blue85.png' }
+    { jar: 'A', highProbabilityColor: 'red', lowProbabilityColor: 'blue', jarImage: 'red85-blue15ver.png' },
+    { jar: 'B', highProbabilityColor: 'blue', lowProbabilityColor: 'red', jarImage: 'red15-blue85ver.png' }
   ],
 
   /**
@@ -68,7 +68,7 @@ const prepareTimeline = () => {
     // beads task 課題を行います。
     doBeadsTaskTrial(settings),
 
-    // 課題の終了文を表示します。 
+    // 課題の終了文を表示します。
     showEndInstruction(timeline),
 
     // フルスクリーン表示を解除します。
@@ -106,7 +106,7 @@ const setFullScreen = () => {
 
 /**
  * 試行に必要な画像データを事前にロードします。
- * @param {*} settings 
+ * @param {*} settings
  */
 const preloadData = (settings) => {
   let imageData = [];
@@ -144,13 +144,14 @@ const preloadData = (settings) => {
         <img src="${settings.jarStimSourceMap.get('B').jarImage}" class="jarimage">
       </div>
     </div>
-    <div style="width: 100%; height: 50vh;"></div>
-    <div>この課題では、瓶 A または瓶 B のどちらかから赤色または青色のビーズを取り出します。<br>
+    <div style="width: 100%; height: 20vh;"></div>
+    <div>この課題では、コンピューターが，瓶 A または瓶 B のどちらかから赤色または青色のビーズを取り出します。<br>
       それぞれのビーズは、同じ瓶の中からランダムに取り出されます。<br><br>
       一度取り出されたビーズは、次のビーズを取り出す前に瓶に戻します。<br>
       そのため、瓶の中の赤色と青色のビーズの個数は常に一定です。<br><br>
       これから、瓶から取り出されるビーズを見て、瓶 A と瓶 B のどちらから取り出されているのかを推測してください。<br>
-      ビーズが入っていた瓶がどちらかを推測する前に、何度でも瓶からビーズを取り出すことができます。</div>
+      この推測ができるのは1回だけです。<br>
+      ただし、推測する前に、何度でも瓶からビーズを取り出すことができます。</div>
   `,
   choices: [`<div id="button" class="single">1 つめのビーズを引く</div>`],
   button_html: `%choice%`,
@@ -198,7 +199,7 @@ const doBeadsTaskTrial = (settings) => {
     <div id="beadssequence"><div style="font-size: 14pt; text-align: center; line-height: 1.8em;">これまでに引いたビーズ</div><br>
     ${beadsSequence}</div>`
     },
-    choices: [`<div id="button" class="double_left">次のビーズを引く</div>`, `<div id="button" class="double_right">瓶を推測する</div>`],
+    choices: [`<div id="button" class="double_left">次のビーズを引く</div>`, `<div id="button" class="double_right">瓶を推測する（1回のみ）</div>`],
     button_html: '%choice%',
     data: {
       name: 'drawing',
@@ -208,7 +209,7 @@ const doBeadsTaskTrial = (settings) => {
     on_finish: () => {
       let response = jsPsych.data.get().last(1).values()[0];
       let choice = response.response;
-      jsPsych.data.repeatFlag = (choice == 0); 
+      jsPsych.data.repeatFlag = (choice == 0);
       console.log(beadsSequence);
       trialCount++;
     }
@@ -227,6 +228,7 @@ const doBeadsTaskTrial = (settings) => {
   });
 
  // 瓶を推測する試行です。
+ //<div id="beadscounter">${trialCount} 回目の<br>ビーズ<br><br><img src="${beads}"></div> は消したat
   const chooseJar = () => ({
   type: jsPsychHtmlButtonResponse,
   stimulus: () => {
@@ -235,7 +237,7 @@ const doBeadsTaskTrial = (settings) => {
       <div id="jar">
         <div class="jarlabel">A</div>
       </div>
-      <div id="beadscounter">${trialCount} 回目の<br>ビーズ<br><br><img src="${beads}"></div>
+      <div id="beadscounter"></div>
       <div id="jar">
         <div class="jarlabel">B</div>
       </div>
@@ -311,10 +313,8 @@ const showEndInstruction = () => ({
   type: jsPsychHtmlKeyboardResponse,
   stimulus: `
     <p style="font-size: 24px; line-height: 1.8em; text-align: left; width: 800px;">
-      課題は終了しました。<br>
-      キーボードのキーをどれか押すと、結果が保存され、課題画面が消えます。<br>
-      その後、ブラウザーを閉じてください。<br>
-      ご参加、ありがとうございました。</p>`,
+    　この課題は終了です。<br>
+      キーボードのキーをどれか押すと、結果が保存されて，次の課題に進みます<br>`,
   choices: "ALL_KEYS",
   post_trial_gap: 1000,
   data: {
@@ -365,7 +365,7 @@ const prepareSettings = () => {
   for (let i = 0; i < usersettings.jarStimuli.length; i++) {
     usersettings.jarStimSourceMap.set(
       usersettings.jarStimuli[i].jar, {
-      highProbabilityColor: usersettings.jarStimuli[i].highProbabilityColor, 
+      highProbabilityColor: usersettings.jarStimuli[i].highProbabilityColor,
       lowProbabilityColor: usersettings.jarStimuli[i].lowProbabilityColor,
       jarImage: usersettings.sourceFolderPath + usersettings.jarStimuli[i].jarImage }
     );
@@ -388,4 +388,3 @@ const prepareSettings = () => {
  * jsPsych が定義された課題シーケンスを実行します。
  */
 var timeline = prepareTimeline();
-
