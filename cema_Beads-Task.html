@@ -6,11 +6,153 @@
   <script src="Beads-Task/plugins.js"></script>
   <link href="Beads-Task/jspsych/dist/jspsych.css" rel="stylesheet" type="text/css" />
     <style>
-      body {
+    /* 課題名を表示します。*/
+    #title {
+      font-size: 40px;
+      font-weight: bold;
+      text-align: center;
+      display: block;
+      box-sizing: border-box;
+      height: 50px;
+      width: 100%;
+      position: absolute;
+      transform: translate(-50%, 0%);
+      left: 50%;
+      top: 5%;
+    }
+
+    /* ジャーとビーズを整列して配置します。*/
+    #instruction {
+      text-align: center;
+      display: block;
+      box-sizing: border-box;
+      height: 55vh;
+      width: 50vw;
+      position: absolute;
+      transform: translate(-50%, 0%);
+      left: 50%; 
+      top: 10vh;
+    }
+    
+    /* ジャーのラベルと画像を配置します。*/
+    #jar {
+      text-align: center;
+      display: inline-block;
+      box-sizing: border-box;
+      width: 15vw;
+    }
+
+    /* ジャーのラベルです。*/
+    .jarlabel {
+      font-size: 30px;
+      text-align: center;
+      display: inline-block;
+      height: 5vh;
+      width: 15vw;
+      vertical-align: top;
+      margin: 3vh 0;
+    }
+
+    /* ジャーの画像です。*/
+    .jarimage {
+      width: 10vw;
+    }
+
+    /* ビーズのカウンターです。*/
+    #beadscounter {
+      font-size: 30px;
+      font-weight: bold;
+      line-height: 1.2em;
+      text-align: center;
+      display: inline-block;
+      width: 15vw;
+      vertical-align: top;
+    }
+    
+    /* 一般的なボタンの設定です。*/
+    #button {
+      font-size: 20px;
+      display: inline-block;
+      background-color: #FFFFFF;
+      padding: 5px 10px;
+      border: 1px solid #C0C0C0;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #button:hover {
+      background-color: #DDDDDD;
+    }
+
+    /* 1 つのボタンを中央下部に配置します。*/
+    .single {
+      position: absolute;
+      transform: translate(-50%, 0%);
+      top: 90vh;
+      left: 50%;
+    }
+
+    /* 2 つのボタンを配置します。1 つを左下部に配置します。*/
+    .double_left {
+      position: absolute;
+      transform: translate(-50%, 0%);
+      top: 90vh;
+      left: 40%;
+    }
+
+    /* 2 つのボタンを配置します。1 つを右下部に配置します。*/
+    .double_right {
+      position: absolute;
+      transform: translate(-50%, 0%);
+      top: 90vh;
+      left: 60%;
+    }
+
+   /* ビーズを整列して配置します。*/
+    #beadssequence {
+      line-height: 1.2em;
+      text-align: left;
+      display: inline-block;
+      height: 240px;
+      width: 500px;
+      position: absolute;
+      transform: translate(-50%, 0%);
+      top: 60vh;
+    }
+
+    /* 整列するビーズの大きさを設定します。*/
+    .alignedbeads {
+      width: 20px;
+    }
+
+    /* ジャーをボタンとして表示します。*/
+    .jarbutton {
+      font-size: 30px;
+      width: 10vw;
+      background-color: #FFFFFF;
+      padding: 5px 10px;
+      border: 1px solid #C0C0C0;
+      border-radius: 4px;
+      position: absolute;
+      transform: translate(-50%, 0%);
+      top: 20.5vh;
+      cursor: pointer;
+    }
+    .jarbutton:hover {
+      background-color: #DDDDDD;
+    }
+
+    /* jsPsych のボタン設定を上書きします。*/
+    .jspsych-btn {
+      border-style: none;
+    }
+    .jspsych-btn:hover {
+      background-color: #FFFFFF;
+    }
+    body {
         text-align: center; /* Center inline-block children */
         padding-top: 20px; /* Add some space above the button */
       }
-      #finishButton {
+    #finishButton {
         display: none; /* Keep hidden initially */
         padding: 12px 24px;
         font-size: 16px;
